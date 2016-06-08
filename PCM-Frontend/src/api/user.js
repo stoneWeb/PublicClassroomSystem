@@ -24,3 +24,11 @@ export const login = (email, password) => {
     }
   })
 }
+
+export const logout = () => {
+  return ajax({
+    method: 'GET',
+    url: 'http://localhost:3001/logout',
+    withCredentials: true
+  })
+}

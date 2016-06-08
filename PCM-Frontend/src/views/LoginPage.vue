@@ -11,16 +11,17 @@
     <box gap="10px 10px">
       <x-button plain type="primary" @click="jumpToSignupPage">注册</x-button>
     </box>
-    
+    <toast :show.sync="tst" type="text" :time="1000">{{ msg }}</toast>
   </div>
 </template>
 <script>
 
-import { XHeader, Box, XButton, XInput, Group, Cell } from 'vux'
+import { Toast, XHeader, Box, XButton, XInput, Group, Cell } from 'vux'
 import { login as APIlogin } from '../api/user'
-
+import { clearCookie, setCookie, getCookie } from '../utils/cookies'
 export default {
   components: {
+    Toast,
     XInput,
     Group,
     Cell,
@@ -31,20 +32,29 @@ export default {
   data() {
     return { 
       email: '',
-      password: ''
+      password: '',
+      msg: '',
+      tst: false
     }
   },
   methods: {
     login() {
+      console.log(getCookie('connect.sid'))
       var self = this;
       APIlogin(this.email, this.password)
       .then((response, xhr) => {
         if (response.error == 0) {
+          
+
+          var tokenHeader = xhr.getResponseHeader('token').split('=')
+          console.log(tokenHeader)
           console.log(response)
-          console.log(xhr)
-          console.log(xhr.getResponseHeader('set-cookie'))
-          console.log(xhr.getAllResponseHeaders())
+          setCookie(tokenHeader[0], tokenHeader[1].split(';')[0])
           self.$router.go({name: 'main'})
+        } else {
+          self.msg = response.msg
+          self.tst = true
+          clearCookie('sid')
         }
       })
     },

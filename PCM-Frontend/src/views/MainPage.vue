@@ -24,7 +24,7 @@
       </flexbox>
       <flexbox class="vux-1px-b" :gutter="0">
         <flexbox-item class="vux-1px-r">
-            <div class="icon">
+            <div class="icon" @click="jumpToMyPage">
               <img src="../assets/me.png" alt="">
               <div class="icon-title">我的信息</div>
             </div>
@@ -62,6 +62,9 @@ export default {
     },
     jumpToCheckPage() {
       this.$router.go({name: 'check'})
+    },
+    jumpToMyPage() {
+      this.$router.go({name: 'me'})
     }
   }
 }

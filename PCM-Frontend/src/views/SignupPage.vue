@@ -18,6 +18,7 @@
 
 import { XHeader, Box, XButton, XInput, Group, Cell } from 'vux'
 import { signup as APIsignup } from '../api/user'
+import { setCookie } from '../utils/cookies'
 
 export default {
   components: {
@@ -40,9 +41,11 @@ export default {
     signup() {
       var self = this;
       APIsignup(this.email, this.name, this.password)
-      .then((response) => {
+      .then((response, xhr) => {
         if (response.error == 0) {
-          self.$router.go({name: 'login'})
+          var tokenHeader = xhr.getResponseHeader('token').split('=')
+          setCookie(tokenHeader[0], tokenHeader[1])
+          self.$router.go({name: 'main'})
         }
       })
       
