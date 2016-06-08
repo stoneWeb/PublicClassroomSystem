@@ -11,6 +11,11 @@ import IndexPage from './views/IndexPage'
 import MainPage from './views/MainPage'
 import ApplyPage from './views/ApplyPage'
 import CheckRecordPage from './views/CheckRecordPage'
+import AdminIndexPage from './views/AdminIndexPage'
+import AdminLoginPage from './views/AdminLoginPage'
+import AdminForgetPage from './views/AdminForgetPage'
+import AdminMainPage from './views/AdminMainPage'
+import AdminApprovePage from './views/AdminApprovePage'
 
 Vue.use(Router)
 
@@ -44,6 +49,29 @@ router.map({
   '/record': {
     component: CheckRecordPage,
     name: 'check'
+  },
+  '/admin': {
+    component: AdminIndexPage,
+    name: 'admin'
+  },
+  '/admin/login': {
+    component: AdminLoginPage,
+    name: 'adminLogin'
+  },
+  '/admin/forget': {
+    component: AdminForgetPage,
+    name: 'adminForget'
+  },
+  'admin/index': {
+    component: AdminMainPage,
+    name: 'adminMain'
+  },
+  'admin/approve': {
+    component: AdminApprovePage,
+    name: 'adminApprove'
+  },
+  'admin/logout': {
+    name: 'adminLogout'
   }
 })
 
