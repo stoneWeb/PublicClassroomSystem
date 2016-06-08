@@ -10,7 +10,7 @@
       <x-button type="primary" @click="signup">注册</x-button>
     </box>
     <box gap="10px 10px">
-      <x-button plain type="primary">重填</x-button>
+      <x-button plain type="primary" @click="clearInput">重填</x-button>
     </box>
   </div>
 </template>
@@ -46,6 +46,9 @@ export default {
         }
       })
       
+    },
+    clearInput() {
+      // do something   
     }
   }
 }
