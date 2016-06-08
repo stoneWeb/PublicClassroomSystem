@@ -4,13 +4,13 @@
     <div class="white-bg">
       <flexbox class="vux-1px-tb" :gutter="0">
         <flexbox-item class="vux-1px-r">
-          <div class="icon">
+          <div class="icon" @click="jumpToApplyPage">
             <img src="../assets/add.png" alt="">
             <div class="icon-title">申请课室</div>
           </div>
         </flexbox-item>
         <flexbox-item class="vux-1px-r">
-          <div class="icon">
+          <div class="icon" @click="jumpToCheckPage">
             <img src="../assets/look.png" alt="">
             <div class="icon-title">查看审批</div>
           </div>
@@ -25,8 +25,8 @@
       <flexbox class="vux-1px-b" :gutter="0">
         <flexbox-item class="vux-1px-r">
             <div class="icon">
-              <img src="../assets/add.png" alt="">
-              <div class="icon-title">申请课室</div>
+              <img src="../assets/me.png" alt="">
+              <div class="icon-title">我的信息</div>
             </div>
           </flexbox-item>
           <flexbox-item class="vux-1px-r">
@@ -55,6 +55,14 @@ export default {
     XHeader,
     Flexbox,
     FlexboxItem
+  },
+  methods: {
+    jumpToApplyPage() {
+      this.$router.go({name: 'apply'})
+    },
+    jumpToCheckPage() {
+      this.$router.go({name: 'check'})
+    }
   }
 }
 </script>

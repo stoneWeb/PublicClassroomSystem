@@ -8,6 +8,7 @@ import ForgetPage from './views/ForgetPage'
 import IndexPage from './views/IndexPage'
 import MainPage from './views/MainPage'
 import ApplyPage from './views/ApplyPage'
+import CheckRecordPage from './views/CheckRecordPage'
 
 Vue.use(Router)
 
@@ -37,6 +38,10 @@ router.map({
   '/apply': {
     component: ApplyPage,
     name: 'apply'
+  },
+  '/record': {
+    component: CheckRecordPage,
+    name: 'check'
   }
 })
 
