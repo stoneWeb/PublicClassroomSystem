@@ -16,7 +16,7 @@
           </div>
         </flexbox-item>
         <flexbox-item class="vux-1px-r">
-          <div class="icon">
+          <div class="icon" @click="jumpToQueryPage">
             <img src="../assets/room.png" alt="">
             <div class="icon-title">课室状态</div>
           </div>
@@ -65,6 +65,9 @@ export default {
     },
     jumpToMyPage() {
       this.$router.go({name: 'me'})
+    },
+    jumpToQueryPage() {
+      this.$router.go({name: 'query'})
     }
   }
 }
