@@ -44,14 +44,10 @@ export default {
       APIlogin(this.email, this.password)
       .then((response, xhr) => {
         if (response.error == 0) {
-          
-
-          var tokenHeader = xhr.getResponseHeader('token').split('=')
-          console.log(tokenHeader)
-          console.log(response)
-          setCookie(tokenHeader[0], tokenHeader[1].split(';')[0])
+          console.log('登录成功')
           self.$router.go({name: 'main'})
         } else {
+          console.log('登录错误')
           self.msg = response.msg
           self.tst = true
           clearCookie('sid')
