@@ -13,12 +13,12 @@ import ApplyPage from './views/ApplyPage'
 import MyPage from './views/MyPage'
 import CheckRecordPage from './views/CheckRecordPage'
 import QueryRoomPage from './views/QueryRoomPage'
+import ApplyRecordDetailPage from './views/ApplyRecordDetailPage'
 import AdminIndexPage from './views/AdminIndexPage'
 import AdminLoginPage from './views/AdminLoginPage'
 import AdminForgetPage from './views/AdminForgetPage'
 import AdminMainPage from './views/AdminMainPage'
 import AdminApprovePage from './views/AdminApprovePage'
-import AdminCheckRecordPage from './views/AdminCheckRecordPage'
 
 Vue.use(Router)
 
@@ -56,6 +56,10 @@ router.map({
   '/query': {
     component: QueryRoomPage,
     name: 'query'
+  },
+  '/detail/:id': {
+    component: ApplyRecordDetailPage,
+    name: 'applyDetail'
   },
   '/admin': {
     component: AdminIndexPage,
