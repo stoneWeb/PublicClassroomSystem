@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { getCookie } from './utils/cookies'
+
 import App from './App'
 
 import LoginPage from './views/LoginPage'
@@ -45,5 +47,11 @@ router.map({
   }
 })
 
+router.beforeEach(({ to, next }) => {
+  var path = to.path
+  console.log(path)
 
+  console.log(getCookie('connect.sid'))
+  next()
+})
 router.start(App, '#app')
