@@ -71,9 +71,6 @@ router.map({
     component: AdminApprovePage,
     name: 'adminApprove'
   },
-  'admin/logout': {
-    name: 'adminLogout'
-  },
   '/me': {
     component: MyPage,
     name: 'me'
