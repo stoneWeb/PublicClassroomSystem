@@ -3,7 +3,7 @@
     <x-header>课室状态</x-header>
     <group title="Default">
       <popup-picker title="课室号" :data="rooms" :value.sync="roomNo"></popup-picker>
-      <datetime :value.sync="day" @on-change="change" title="日期" format="YYYY-MM-DD"></datetime>
+      <datetime :value.sync="day" title="日期" format="YYYY-MM-DD"></datetime>
     </group>
     <box gap="10px 10px">
       <x-button type="primary" @click="queryRoom">查询</x-button>
@@ -13,7 +13,6 @@
 <script>
 
 import { Box, XButton, PopupPicker, Datetime, XNumber, XHeader, Group, Cell, XInput } from 'vux'
-import {getRecord as APIQueryRoom} from '../api/record'
 
 export default {
   components: {
@@ -36,15 +35,10 @@ export default {
   },
   methods: {
     queryRoom() {
-      var self = this;
-      var roomNo = self.roomNo.join("");
-      var day = self.day;
-      APIQueryRoom(roomNo, day)
-      .then((response, xhr) => {
-        console.log(response);
-        if (response.error == 0) {
-        }
-      })
+      var roomNo = this.roomNo.join("");
+      var day = this.day;
+      this.$router.go(`/record/${roomNo}/${day}`)
+      
     }
   }
 }

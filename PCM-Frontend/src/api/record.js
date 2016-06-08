@@ -17,3 +17,12 @@ export const applyRoom = (form) => {
   })
   return request.post('http://localhost:3001/record', form)
 }
+
+export const approveRecord = (recordId, status) => {
+  return ajax({
+    method: 'POST',
+    url: `http://localhost:3001/record/${recordId}`,
+    data: { status },
+    withCredentials: true
+  })
+}

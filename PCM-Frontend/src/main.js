@@ -19,6 +19,7 @@ import AdminLoginPage from './views/AdminLoginPage'
 import AdminForgetPage from './views/AdminForgetPage'
 import AdminMainPage from './views/AdminMainPage'
 import AdminApprovePage from './views/AdminApprovePage'
+import GetRecordPage from './views/GetRecordPage'
 
 Vue.use(Router)
 
@@ -52,6 +53,9 @@ router.map({
   '/record': {
     component: CheckRecordPage,
     name: 'check'
+  },
+  '/record/:roomNo/:date': {
+    component: GetRecordPage
   },
   '/query': {
     component: QueryRoomPage,
