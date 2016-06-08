@@ -18,6 +18,7 @@ import AdminLoginPage from './views/AdminLoginPage'
 import AdminForgetPage from './views/AdminForgetPage'
 import AdminMainPage from './views/AdminMainPage'
 import AdminApprovePage from './views/AdminApprovePage'
+import AdminCheckRecordPage from './views/AdminCheckRecordPage'
 
 Vue.use(Router)
 
