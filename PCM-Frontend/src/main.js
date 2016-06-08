@@ -12,6 +12,7 @@ import MainPage from './views/MainPage'
 import ApplyPage from './views/ApplyPage'
 import MyPage from './views/MyPage'
 import CheckRecordPage from './views/CheckRecordPage'
+import QueryRoomPage from './views/QueryRoomPage'
 import AdminIndexPage from './views/AdminIndexPage'
 import AdminLoginPage from './views/AdminLoginPage'
 import AdminForgetPage from './views/AdminForgetPage'
@@ -50,6 +51,10 @@ router.map({
   '/record': {
     component: CheckRecordPage,
     name: 'check'
+  },
+  '/query': {
+    component: QueryRoomPage,
+    name: 'query'
   },
   '/admin': {
     component: AdminIndexPage,
