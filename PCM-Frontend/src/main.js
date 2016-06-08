@@ -87,6 +87,7 @@ router.beforeEach(({ to, next }) => {
 
   if (path !== '/signup' && path !== '/login' && path !== '/') {
     if (document.cookie == "sid=" || document.cookie == "sid") {
+      console.log('未登录')
       router.go({name: 'index'})
       return
     }

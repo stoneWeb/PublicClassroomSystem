@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 
 export const getCookie = (name) => Cookies.get(name)
 export const setCookie = (name, value) => {
+  
   Cookies.set(name, value)
   // console.log(`${name}=${value}`)
   // document.cookie = "dd=123"

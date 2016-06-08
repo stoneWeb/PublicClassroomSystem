@@ -43,8 +43,7 @@ export default {
       APIsignup(this.email, this.name, this.password)
       .then((response, xhr) => {
         if (response.error == 0) {
-          var tokenHeader = xhr.getResponseHeader('token').split('=')
-          setCookie(tokenHeader[0], tokenHeader[1])
+          console.log('登录成功')
           self.$router.go({name: 'main'})
         }
       })
