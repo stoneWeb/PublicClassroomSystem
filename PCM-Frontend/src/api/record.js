@@ -21,8 +21,24 @@ export const applyRoom = (form) => {
 export const approveRecord = (recordId, status) => {
   return ajax({
     method: 'POST',
-    url: `http://localhost:3001/record/${recordId}`,
+    url: `http://localhost:3001/admin/record/${recordId}`,
     data: { status },
+    withCredentials: true
+  })
+}
+
+export const getAllRecord = () => {
+  return ajax({
+    method: 'GET',
+    url: 'http://localhost:3001/admin/record',
+    withCredentials: true
+  })
+}
+
+export const getUserRecord = () => {
+  return ajax({
+    method: 'GET',
+    url: 'http://localhost:3001/record',
     withCredentials: true
   })
 }

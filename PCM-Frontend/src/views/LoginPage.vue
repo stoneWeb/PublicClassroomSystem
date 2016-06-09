@@ -1,7 +1,7 @@
 <template>
   <div>
-    <x-header>登录<a @click="jumpToForgetPwd" slot="right">忘记密码</a></x-header>
-    <group title="Default">
+    <x-header :left-options="{showBack: true, backText: 'PCM'}">登录<a @click="jumpToForgetPwd" slot="right">忘记密码</a></x-header>
+    <group title="登录进入 PCM">
       <x-input title="邮箱" :value.sync="email" is-type="email" placeholder="example@pcm.com"></x-input>
       <x-input title="密码" :value.sync="password" type="password" placeholder="password"></x-input>
     </group>
@@ -45,12 +45,14 @@ export default {
       .then((response, xhr) => {
         if (response.error == 0) {
           console.log('登录成功')
+          document.cookie = "iden=student"
           self.$router.go({name: 'main'})
         } else {
           console.log('登录错误')
           self.msg = response.msg
           self.tst = true
           clearCookie('sid')
+          clearCookie('iden')
         }
       })
     },

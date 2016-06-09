@@ -1,8 +1,8 @@
 <template>
   <div>
-    <x-header>{{ date }}</x-header>
+    <x-header :left-options="{showBack: true, backText: '主页'}">{{ date }}</x-header>
     <group title="该日申请">
-      <cell v-for="record in records" :title="record.unit" link="/component/radio" :inline-desc="getDescString(record)"></cell>
+      <cell v-for="record in records" :title="record.unit" :link="'/detail/'+record.id" :inline-desc="getDescString(record)"></cell>
     </group>
     <toast :show.sync="tst" type="text" :time="1000">{{ msg }}</toast>
   </div>
@@ -43,7 +43,7 @@ export default {
 
       APIQueryRoom(this.roomNo, this.day)
       .then((response, xhr) => {
-        console.log(response);
+        console.log(response)
         if (response.error == 0) {
           self.records = response.msg
         } else {

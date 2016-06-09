@@ -4,6 +4,7 @@ var getTime = (time) => {
 }
 
 export const getDescString = (d) => {
+  console.log(d)
   var roomNo = d.room.roomNo
   var date = d.date.slice(0, 10)
   var startTime = getTime(d.startTime)

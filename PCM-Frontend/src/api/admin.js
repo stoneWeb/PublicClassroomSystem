@@ -15,9 +15,7 @@ export const adminLogin = (email, password) => {
 export const adminLogout = () => {
   return ajax({
     method: 'GET',
-    url: 'http://localhost:8080/admin/logout',
-    withCredentials: true,
-    data: {
-    }
+    url: 'http://localhost:3001/admin/logout',
+    withCredentials: true
   })
 }

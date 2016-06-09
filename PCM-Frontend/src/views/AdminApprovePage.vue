@@ -1,36 +1,70 @@
 <template>
   <div>
-    <x-header>查看审批</x-header>
+    <x-header :left-options="{showBack: true, backText: '主页'}">查看审批</x-header>
     <group title="待审批记录">
-      <cell v-for="record in records" :title="record.title" link="/component/radio" :inline-desc="record.date"></cell>
+      <div v-for="record in records" @click="jumpToDetail($index, record.id)">
+        <cell v-if="hasnApproved(record)" :title="record.unit" :inline-desc="getDescString(record)"></cell>
+      </div>
     </group>
     <group title="审批历史">
-      <cell title="中山大学羽墨轩俱乐部" link="/component/radio" inline-desc="A101/12月2日10:00-12:00"></cell>
+      <div v-for="record in records"  @click="jumpToDetail($index, record.id)">
+        <cell v-if="hasApproved(record)" :title="record.unit" :inline-desc="getDescString(record)"></cell>
+      </div>
     </group>
+    <toast :show.sync="tst" type="text" :time="1000">{{ msg }}</toast>
   </div>
 </template>
 
 <script>
 
-import { Group, Cell, XHeader } from 'vux'
+import { Toast, Group, Cell, XHeader } from 'vux'
+import { getAllRecord as APIgetAllRecord } from '../api/record'
+import { getDescString } from '../utils/filter'
 
 export default {
   components: {
+    Toast,
     Group,
     Cell,
     XHeader
   },
   data() {
     return {
-      records: [
-        {title: '中山大学羽墨轩俱乐部',
-         date: 'A101/12月2日10:00-12:00'},
-        {title: '中山大学MIAC俱乐部',
-         date: 'A203/12月3日11:00-13:00'},
-        {title: '中山大学UED俱乐部',
-         date: 'A404/12月5日18:00-19:00'}
-      ]
+      records: [],
+      tst: false,
+      msg: ''
     }
+  },
+  methods: {
+    getDescString,
+    jumpToDetail(index, id) {
+      DATA = this.records[index]
+      this.$router.go(`/admin/detail/${id}`)
+    },
+    hasnApproved(record) {
+      return record.status == 0
+    },
+    hasApproved(record) {
+      return record.status != 0
+    }
+  },
+  route: {
+    data({to, next}) {
+      var self = this
+      APIgetAllRecord()
+      .then((response) => {
+        console.log(response)
+        if (response.error == 0) {
+          self.records = response.msg
+        } else {
+          console.log('出错了')
+          self.msg = 'Ocps, 请求数据错误'
+          self.tst = true
+        }
+      })
+      next()
+    }
+
   }
 }
 

@@ -32,3 +32,12 @@ export const logout = () => {
     withCredentials: true
   })
 }
+
+
+export const getUserInfo = () => {
+  return ajax({
+    method: 'GET',
+    url: 'http://localhost:3001/user',
+    withCredentials: true
+  })
+}

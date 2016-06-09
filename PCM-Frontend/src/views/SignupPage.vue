@@ -1,7 +1,7 @@
 <template>
   <div>
-    <x-header>注册</x-header>
-    <group title="Default">
+    <x-header :left-options="{showBack: true, backText: '返回'}">注册</x-header>
+    <group title="注册用户才能申请课室">
       <x-input title="邮箱" :value.sync="email" is-type="email" placeholder="example@pcm.com"></x-input>
       <x-input title="姓名" :value.sync="name" placeholder="张三疯"></x-input>
       <x-input title="密码" :value.sync="password" type="password" placeholder="password"></x-input>
@@ -44,6 +44,7 @@ export default {
       .then((response, xhr) => {
         if (response.error == 0) {
           console.log('登录成功')
+          document.cookie = "iden=student"
           self.$router.go({name: 'main'})
         }
       })

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header>主页</x-header>
+    <x-header :left-options="{showBack: false}">主页</x-header>
     <div class="white-bg">
       <flexbox class="vux-1px-tb" :gutter="0">
         <flexbox-item class="vux-1px-r">
@@ -30,15 +30,15 @@
             </div>
           </flexbox-item>
           <flexbox-item class="vux-1px-r">
-            <div class="icon">
-              <img src="../assets/look.png" alt="">
-              <div class="icon-title">查看审批</div>
+            <div class="icon" @click="jumpToAboutPage">
+              <img src="../assets/about.png" alt="">
+              <div class="icon-title">关于 PCM</div>
             </div>
           </flexbox-item>
           <flexbox-item class="vux-1px-r">
-            <div class="icon">
-              <img src="../assets/room.png" alt="">
-              <div class="icon-title">课室状态</div>
+            <div class="icon" @click="logout">
+              <img src="../assets/logout.png" alt="">
+              <div class="icon-title">退出登录</div>
             </div>
           </flexbox-item>
         </flexbox>
@@ -49,6 +49,8 @@
 
 <script>
 import { Flexbox, FlexboxItem, XHeader } from 'vux'
+import { logout as APIlogout } from '../api/user'
+import { clearCookie } from '../utils/cookies'
 
 export default {
   components: {
@@ -68,6 +70,18 @@ export default {
     },
     jumpToQueryPage() {
       this.$router.go({name: 'query'})
+    },
+    jumpToAboutPage() {
+      this.$router.go({name: 'about'})
+    },
+    logout() {
+      var self = this
+      APIlogout()
+      .then((response) => {
+        clearCookie('sid')
+        clearCookie('iden')
+        self.$router.go({name: 'index'})
+      })
     }
   }
 }

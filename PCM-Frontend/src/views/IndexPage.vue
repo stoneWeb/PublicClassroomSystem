@@ -18,6 +18,9 @@
         </flexbox>
       </box>
     </div>
+    <div>
+      <a class="my-a" v-link="{name: 'admin'}">管理员入口</a>
+    </div>
   </div>
 </template>
 
@@ -69,5 +72,13 @@ export default {
   position: fixed;
   width: 100%;
   bottom: 15px;
+}
+.my-a {
+  color: #fff;
+  text-decoration: underline;
+  opacity: .8;
+  display: block;
+  text-align: center;
+  margin-top: 10px;
 }
 </style>

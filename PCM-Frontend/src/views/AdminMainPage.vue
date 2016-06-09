@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header>主页</x-header>
+    <x-header :left-options="{showBack: false}">主页</x-header>
     <div class="white-bg">
       <flexbox class="vux-1px-tb" :gutter="0">
         <flexbox-item class="vux-1px-r">
@@ -10,17 +10,27 @@
           </div>
         </flexbox-item>
         <flexbox-item class="vux-1px-r">
-          <div class="icon">
+          <div class="icon" @click="jumpToQueryRoomPage">
             <img src="../assets/room.png" alt="课室状态">
             <div class="icon-title">课室状态</div>
           </div>
         </flexbox-item>
         <flexbox-item class="vux-1px-r">
-            <div class="icon" @click="jumpToAdminLogout">
-              <img src="../assets/me.png" alt="退出登录">
+          <div class="icon" @click="jumpToAboutPage">
+            <img src="../assets/about.png" alt="关于">
+            <div class="icon-title">关于</div>
+          </div>
+        </flexbox-item>
+      </flexbox>
+      <flexbox  class="vux-1px-b" :gutter="0">
+        <flexbox-item class="vux-1px-r">
+            <div class="icon" @click="logout">
+              <img src="../assets/logout.png" alt="退出登录">
               <div class="icon-title">退出登录</div>
             </div>
           </flexbox-item>
+          <flexbox-item class="vux-1px-r"></flexbox-item>
+          <flexbox-item class="vux-1px-r"></flexbox-item>
       </flexbox>
     </div>
     
@@ -41,9 +51,24 @@ export default {
     jumpToAdminAprrovePage() {
       this.$router.go({name: 'adminApprove'})
     },
-    jumpToAdminLogout() {
-      this.$router.go({name: 'admin'})
-    }
+    logout() {
+      APIadminLogout()
+      .then((response) => {
+        if (response.error == 0) {
+          clearCookie('sid')
+          clearCookie('iden')
+          this.$router.go({name: 'admin'})
+        } else {
+          console.log(response.msg)
+        }
+      })
+    },
+    jumpToAboutPage() {
+      this.$router.go({name: 'about'})
+    },
+    jumpToQueryRoomPage() {
+      this.$router.go({name: 'query'})
+    },
   }
 }
 </script>

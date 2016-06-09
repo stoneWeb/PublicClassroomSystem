@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header>查看审批</x-header>
+    <x-header :left-options="{showBack: true, backText: '返回'}">查看审批</x-header>
     <group title="申请详情" class="title-font">
       <cell class="color" title="所属单位">
         <div slot="value">
@@ -14,12 +14,12 @@
       </cell>
       <cell class="color" title="日期">
         <div slot="value">
-          <span class="detail-color">{{record.date}}</span>
+          <span class="detail-color">{{ date }}</span>
         </div>
       </cell>
       <cell class="color" title="时间">
         <div slot="value">
-          <span class="detail-color">{{record.startTime}}-{{record.endTime}}</span>
+          <span class="detail-color">{{ startTime }}-{{ endTime }}</span>
         </div>
       </cell>
       <cell class="color" title="人数">
@@ -38,22 +38,27 @@
         </div>
       </cell>
     </group>
-    <div class="set-margin" v-if="isAdmin">
+    <box gap="10px 10px" v-if="hasApproved">
+      <x-button type="warn" @click="approve(0)">取消审批</x-button>
+    </box>
+    <box gap="10px 10px" v-if="hasnApproved">
       <flexbox>
         <flexbox-item>
-          <x-button type="primary">同意</x-button>
+          <x-button type="primary" @click="approve(1)">同意</x-button>
         </flexbox-item>
         <flexbox-item>
-          <x-button type="warn">拒绝</x-button>
+          <x-button type="warn" @click="approve(2)">拒绝</x-button>
         </flexbox-item>
       </flexbox>
-    </div>
+    </box>
+    <toast :show.sync="tst" type="text" :time="1000">{{ msg }}</toast>
   </div>
 </template>
 
 <script>
 
-import { Group, Cell, XHeader, XButton, Box, GroupTitle,Flexbox, FlexboxItem } from 'vux'
+import { Group, Toast, Cell, XHeader, XButton, Box, GroupTitle,Flexbox, FlexboxItem } from 'vux'
+import { approveRecord as APIapproveRecord } from '../api/record'
 
 var mapArr = ['待审批', '通过', '拒绝'];
 
@@ -66,7 +71,8 @@ export default {
     Box,
     GroupTitle,
     Flexbox,
-    FlexboxItem
+    FlexboxItem,
+    Toast
   },
   data() {
     var url = this.$route.path;
@@ -91,12 +97,52 @@ export default {
         },
         attachment: 'http://download/file/?id=1234'
       },
-      isAdmin: isAdmin
+      isAdmin: isAdmin,
+      msg: '',
+      tst: false,
+      date: '',
+      startTime: '',
+      endTime: ''
+    }
+  },
+  computed: {
+    hasApproved() {
+      return this.isAdmin && this.record.status != 0
+    },
+    hasnApproved() {
+      return this.isAdmin && this.record.status == 0
+    },
+    date() {
+      // console.log(this.record.date,'computing date')
+      return this.record.date.slice(0, 10)
+    },
+    startTime() {
+      let t = this.record.startTime.split(':')
+      return `${t[0]}:${t[1]}`
+    },
+    endTime() {
+      let t = this.record.endTime.split(':')
+      return `${t[0]}:${t[1]}`
+    }
+  },
+  methods: {
+    approve(status) {
+      var self = this
+      APIapproveRecord(this.record.id, status)
+      .then((response) => {
+        if (response.error == 0) {
+          self.record.status = status
+        } else {
+          console.log('有误')
+        }
+        self.msg = response.msg
+        self.tst = true
+      })
     }
   },
   route: {
     data: function (transition) {
-      this.id = this.$route.params.id
+      this.record = DATA
       transition.next();
     }
   }
@@ -114,6 +160,6 @@ export default {
   color: rgba(0,0,0,.8);
 }
 .set-margin {
-  margin: 20px 30px;
+  margin: 10px 10px;
 }
 </style>

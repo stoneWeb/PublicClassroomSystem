@@ -1,7 +1,7 @@
 <template>
   <div>
-    <x-header>课室状态</x-header>
-    <group title="Default">
+    <x-header :left-options="{showBack: true, backText: '主页'}">课室状态</x-header>
+    <group title="根据课室号与日期查询">
       <popup-picker title="课室号" :data="rooms" :value.sync="roomNo"></popup-picker>
       <datetime :value.sync="day" title="日期" format="YYYY-MM-DD"></datetime>
     </group>
@@ -38,7 +38,6 @@ export default {
       var roomNo = this.roomNo.join("");
       var day = this.day;
       this.$router.go(`/record/${roomNo}/${day}`)
-      
     }
   }
 }

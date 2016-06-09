@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header>申请课室</x-header>
+    <x-header :left-options="{showBack: true, backText: '主页'}">申请课室</x-header>
     <group title="Default">
       <popup-picker title="课室号" :data="rooms" :value.sync="roomNo"></popup-picker>
       <datetime :value.sync="day" title="日期" format="YYYY-MM-DD"></datetime>

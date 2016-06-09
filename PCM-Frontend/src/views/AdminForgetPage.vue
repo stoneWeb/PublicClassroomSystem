@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header>联系管理员</x-header>
+    <x-header :left-options="{showBack: true, backText: '登录'}">联系网站管理员</x-header>
     <div class="adminForgetTips">
       <a href="mailto:*******">Please concat with example@pcm.com</a>
     </div>

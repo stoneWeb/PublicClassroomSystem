@@ -20,8 +20,19 @@ import AdminForgetPage from './views/AdminForgetPage'
 import AdminMainPage from './views/AdminMainPage'
 import AdminApprovePage from './views/AdminApprovePage'
 import GetRecordPage from './views/GetRecordPage'
+import AboutPage from './views/AboutPage'
 
 Vue.use(Router)
+
+Vue.filter('hasApproved', (record) => {
+  console.log('filter2')
+  return record.status != 0
+})
+
+Vue.filter('hasnApproved', (record) => {
+  console.log('filter3')
+  return record.status == 0
+})
 
 var router = new Router()
 
@@ -77,31 +88,68 @@ router.map({
     component: AdminForgetPage,
     name: 'adminForget'
   },
-  'admin/index': {
+  '/admin/index': {
     component: AdminMainPage,
     name: 'adminMain'
   },
-  'admin/approve': {
+  '/admin/approve': {
     component: AdminApprovePage,
     name: 'adminApprove'
+  },
+  '/admin/detail/:id': {
+    component: ApplyRecordDetailPage,
+    name: 'approveDetail'
   },
   '/me': {
     component: MyPage,
     name: 'me'
+  },
+  '/about': {
+    component: AboutPage,
+    name: 'about'
   }
 })
 
+var myGetCookie = function(name) {
+  var cks = document.cookie.split(';')
+  var ck = {}
+  for (var i in cks) {
+    var keyValue = cks[i].split('=')
+    ck[keyValue[0].trim()] = keyValue[1].trim()
+  }
+  return ck[name]
+}
+
 router.beforeEach(({ to, next }) => {
   var path = to.path
+  if (path == '/' || path == '/login' || path =='/signup') {
+    console.log(myGetCookie('iden'))
+    if (myGetCookie('iden') == 'student') {
+      if (!(document.cookie == "sid=" || document.cookie == "sid")) {
+        router.go({name: 'main'})
+      }
+    }
+  }
+  if (path !== '/signup' && path !== '/login' && path !== '/'
+    && path !== '/admin/login' && path !== '/forget' && path !== '/admin/forget') {
 
-  if (path !== '/signup' && path !== '/login' && path !== '/') {
     if (document.cookie == "sid=" || document.cookie == "sid") {
       console.log('未登录')
       router.go({name: 'index'})
       return
     }
-  }
+    // admin
+    if (path.indexOf('/admin') > -1) {
+      // ck is not admin
+      if (myGetCookie('iden') != 'admin') {
+        router.go({name: 'main'})
+        return
+      }
+    }
 
+
+  }
   next()
 })
+
 router.start(App, '#app')
