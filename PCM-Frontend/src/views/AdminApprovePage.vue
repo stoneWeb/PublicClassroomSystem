@@ -2,9 +2,11 @@
   <div>
     <x-header :left-options="{showBack: true, backText: '主页'}">查看审批</x-header>
     <group title="待审批记录">
+
       <div v-for="record in records" @click="jumpToDetail($index, record.id)">
         <cell v-if="hasnApproved(record)" :title="record.unit" :inline-desc="getDescString(record)"></cell>
       </div>
+
     </group>
     <group title="审批历史">
       <div v-for="record in records"  @click="jumpToDetail($index, record.id)">

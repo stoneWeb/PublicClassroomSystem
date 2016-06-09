@@ -96,9 +96,15 @@ router.map({
     component: AdminApprovePage,
     name: 'adminApprove'
   },
+<<<<<<< HEAD
   '/admin/detail/:id': {
     component: ApplyRecordDetailPage,
     name: 'approveDetail'
+=======
+  'admin/detail/:id': {
+    component: ApplyRecordDetailPage,
+    name: 'adminApproveDetail'
+>>>>>>> 9d5ab681b9854e21b43a998de7348eeaa62bf546
   },
   '/me': {
     component: MyPage,
