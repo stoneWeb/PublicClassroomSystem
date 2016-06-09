@@ -1,7 +1,7 @@
 <template>
   <div>
     <x-header :left-options="{showBack: true, backText: '返回'}">重设密码</x-header>
-    <group title="Default">
+    <group title="重设密码">
       <x-input title="邮箱" is-type="email" placeholder="example@pcm.com"></x-input>
     </group>
     <box gap="10px 10px">
