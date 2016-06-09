@@ -20,12 +20,13 @@
     <box gap="10px 10px">
       <x-button type="primary" @click="applyRoom">提交</x-button>
     </box>
+    <alert :show.sync="tst" title="消息">{{msg}}</alert>
   </div>
 </template>
 
 <script>
 
-import { Box, XButton, PopupPicker, Datetime, XNumber, XHeader, Group, Cell, XInput } from 'vux'
+import { Alert, Box, XButton, PopupPicker, Datetime, XNumber, XHeader, Group, Cell, XInput } from 'vux'
 import { applyRoom as APIapplyRoom } from '../api/record'
 
 export default {
@@ -38,7 +39,8 @@ export default {
     Cell,
     XInput,
     Datetime,
-    PopupPicker
+    PopupPicker,
+    Alert
   },
   data() {
     return {
@@ -51,7 +53,9 @@ export default {
       unit: '',
       filename: '轻触选择文件',
       number: 0,
-      file: null
+      file: null,
+      msg: '',
+      tst: false
     }
   },
   methods: {
@@ -75,6 +79,23 @@ export default {
       APIapplyRoom(data)
       .then((response, xhr) => {
         console.log(response)
+        if (response.error == 0) {
+          self.msg = "提交成功"
+          self.tst = true
+        } else {
+          if (response.addition) {
+            var unit = response.addition[0].unit
+            var date = response.addition[0].date.slice(0, 10)
+            var startTime = response.addition[0].startTime
+            var endTime = response.addition[0].endTime
+            var getTime = function(t){return `${t.split(':')[0]}:${t.split(':')[1]}`}
+            self.msg = `与 ${unit} 的 ${date} ${getTime(startTime)}-${getTime(endTime)}申请冲突，无法继续申请`
+          } else {
+            self.msg = response.msg
+          }
+          
+          self.tst = true
+        }
       })
     },
     uploadChange(event) {

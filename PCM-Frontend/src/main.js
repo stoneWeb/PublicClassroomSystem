@@ -96,15 +96,9 @@ router.map({
     component: AdminApprovePage,
     name: 'adminApprove'
   },
-<<<<<<< HEAD
   '/admin/detail/:id': {
     component: ApplyRecordDetailPage,
     name: 'approveDetail'
-=======
-  'admin/detail/:id': {
-    component: ApplyRecordDetailPage,
-    name: 'adminApproveDetail'
->>>>>>> 9d5ab681b9854e21b43a998de7348eeaa62bf546
   },
   '/me': {
     component: MyPage,
@@ -119,11 +113,17 @@ router.map({
 var myGetCookie = function(name) {
   var cks = document.cookie.split(';')
   var ck = {}
-  for (var i in cks) {
-    var keyValue = cks[i].split('=')
-    ck[keyValue[0].trim()] = keyValue[1].trim()
+  try {
+    for (var i in cks) {
+      var keyValue = cks[i].split('=')
+      ck[keyValue[0].trim()] = keyValue[1].trim()
+    }
+    return ck[name]
+  } catch (e) {
+    console.log(e)
+    return ''
   }
-  return ck[name]
+  
 }
 
 router.beforeEach(({ to, next }) => {

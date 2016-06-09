@@ -41,7 +41,7 @@ export default {
 
       var self = this
 
-      APIQueryRoom(this.roomNo, this.day)
+      APIQueryRoom(this.roomNo, this.date)
       .then((response, xhr) => {
         console.log(response)
         if (response.error == 0) {
