@@ -2,7 +2,7 @@
   <div>
     <x-header>查看审批</x-header>
     <group title="待审批记录">
-      <cell v-for="record in records" :title="record.title" link="/component/radio" :inline-desc="record.date"></cell>
+      <cell v-for="record in records" :title="record.title" :link="'/admin/detail/' + record.id" :inline-desc="record.date"></cell>
     </group>
     <group title="审批历史">
       <cell title="中山大学羽墨轩俱乐部" link="/component/radio" inline-desc="A101/12月2日10:00-12:00"></cell>
@@ -24,11 +24,14 @@ export default {
     return {
       records: [
         {title: '中山大学羽墨轩俱乐部',
-         date: 'A101/12月2日10:00-12:00'},
+         date: 'A101/12月2日10:00-12:00',
+         id: '123'},
         {title: '中山大学MIAC俱乐部',
-         date: 'A203/12月3日11:00-13:00'},
+         date: 'A203/12月3日11:00-13:00',
+         id: '124'},
         {title: '中山大学UED俱乐部',
-         date: 'A404/12月5日18:00-19:00'}
+         date: 'A404/12月5日18:00-19:00',
+         id: '125'}
       ]
     }
   }
