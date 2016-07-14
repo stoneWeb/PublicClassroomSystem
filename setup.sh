@@ -6,8 +6,8 @@ read username
 echo Input MySQL password
 read password
 
-cfg="export default {url: 'http://localhost:3001',basePath: '${path}',sql_name: '${username}',sql_password: '${password}'
-}}"
+cfg="export default {url: 'http://localhost:3001',basePath: '${path}',sql_name: 'pcm',sql_password: '${password}'
+}"
 cd src
 touch config.js
 echo $cfg > config.js
